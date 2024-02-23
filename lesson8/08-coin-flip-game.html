@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <button onclick="playGame('heads')">heads</button>
+    <button onclick="playGame('tails')">tails</button>
+    <button
+      onclick="
+    score.wins=0;
+    score.looses=0;
+    "
+    >
+      Reset
+    </button>
+
+    <script>
+      const score = {
+        wins: 0,
+        looses: 0,
+      };
+      const playGame = (guess) => {
+        const computermove = pickmove();
+        evaluate(computermove, guess);
+      };
+      let result = "";
+      const evaluate = (computermove, guess) => {
+        if (guess === "heads") {
+          if (computermove === "heads") {
+            score.wins += 1;
+            result = "Win";
+          } else if (computermove === "tails") {
+            score.looses += 1;
+            result = "Loose";
+          }
+        } else if (guess === "tails") {
+          if (computermove === "tails") {
+            score.wins += 1;
+            result = "Win";
+          } else if (computermove === "heads") {
+            score.looses += 1;
+            result = "Loose";
+          }
+        }
+
+        if (result === "Win") {
+          alert(
+            `yourmove ${guess} computermove ${computermove} You win 
+            wins ${score.wins} loose ${score.looses}`
+          );
+        } else if (result === "Loose") {
+          alert(
+            `yourmove ${guess} computermove ${computermove} You Loose
+             wins ${score.wins} loose ${score.looses}`
+          );
+        }
+      };
+      const pickmove = () => {
+        const randomNumber = Math.random();
+        let computermove = "";
+        if (randomNumber < 0.5) {
+          computermove = "heads";
+        } else {
+          computermove = "tails";
+        }
+        return computermove;
+      };
+    </script>
+  </body>
+</html>

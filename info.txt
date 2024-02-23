@@ -1,0 +1,19 @@
+What is javascript:
+>js is use to create websites.
+>Technologies
+>HTML: create content of website
+>CSS : change appearnce of website
+>JS  :use to add functionality
+
+>Setup:
+1.install web browser
+precendance
+*/
++-
+numbers: 2,3,4 integers
+         2.2, 3,5 floating point value
+         for avoiding inaccuracy in float value calaculate in deciml valu and then convert it.
+
+Strings: create string using ' ' or " " or string interpolation `${}` where we can insert value.
+
+

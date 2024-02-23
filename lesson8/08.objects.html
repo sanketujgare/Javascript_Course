@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>objects</title>
+  </head>
+  <body>
+    <script>
+      const product = {
+        name: "socks",
+        price: 1090,
+      };
+      console.log(product);
+      console.log(product.name);
+      console.log(product.price);
+
+      product.name = "cotton socks";
+      console.log(product);
+
+      product.newproperty = false;
+      console.log(product);
+
+      const product2 = {
+        name: "shirt",
+        rating: {
+          stars: 4.5,
+          count: 87,
+        },
+        func: function func1() {
+          console.log("hello");
+        },
+      };
+      console.log(product2);
+      console.log(product2.name);
+      console.log(product2["name"]);
+
+      console.log(product2.rating.stars);
+      console.log(product2.func());
+
+      const jsonstring = JSON.stringify(product2);
+      console.log(JSON.parse(jsonstring));
+
+      const object1 = {
+        message: "hello",
+      };
+      const object2 = object1;
+      object2.message = "hello sanket";
+
+      const object4 = {
+        messgae: "hello ",
+        price: 788,
+        method() {
+          console.log("welcome to the world of programming");
+        },
+      };
+      const { messgae, price } = object4;
+
+      console.log(object4.method());
+    </script>
+  </body>
+</html>

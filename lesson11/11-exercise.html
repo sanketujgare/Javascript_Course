@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const nums = [10, 20, 30];
+      nums[2] = 99;
+      const words = ["hello", "welcome", "world"];
+      function getlastValue(nums) {
+        return nums[nums.length - 1];
+      }
+
+      function arrayswap(nums) {
+        [nums[0], nums[nums.length - 1]] = [nums[nums.length - 1], nums[0]];
+        return nums;
+      }
+      console.log(getlastValue(nums));
+      console.log(getlastValue(words));
+
+      console.log(arrayswap(nums));
+      console.log(arrayswap(words));
+
+      function addNum(nums, incrementer) {
+        return nums.map((element) => element + incrementer);
+      }
+
+      console.log(addNum([1, 2, 3, 4], 1));
+      console.log(addNum([2, 3, 4], 3));
+
+      function addArrays(nums1, nums2) {
+        const arr = [];
+        let i = 0;
+        let j = 0;
+        while (i < nums1.lenghth || j < nums2.length) {
+          arr[i] = nums1[i] + nums2[j];
+          i++;
+          j++;
+        }
+        return arr;
+      }
+      console.log(addArrays([1, 2, 3], [4, 5, 6]));
+    </script>
+  </body>
+</html>

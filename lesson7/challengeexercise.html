@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>calculator</title>
+  </head>
+  <body>
+    <div>
+      <button onclick="updatecalculation('1');">1</button>
+      <button onclick="updatecalculation('2');">2</button>
+
+      <button onclick="updatecalculation('3');">3</button>
+
+      <button onclick="updatecalculation('+');">+</button>
+    </div>
+
+    <div>
+      <button onclick="updatecalculation('4')">4</button>
+
+      <button onclick="updatecalculation('5');">5</button>
+
+      <button onclick="updatecalculation('6')">6</button>
+
+      <button onclick="updatecalculation('-');">-</button>
+    </div>
+
+    <div>
+      <button onclick="updatecalculation('7');">7</button>
+
+      <button onclick="updatecalculation('8');">8</button>
+
+      <button onclick="updatecalculation('9')" ;>9</button>
+
+      <button onclick="updatecalculation('*')">*</button>
+    </div>
+
+    <div>
+      <button onclick="updatecalculation('0');">0</button>
+
+      <button onclick="updatecalculation('.');">.</button>
+
+      <button onclick="calculateResult(calculation);">=</button>
+
+      <button onclick="updatecalculation(' / ')">/</button>
+    </div>
+
+    <div>
+      <button
+        onclick="calculation='';
+      console.log('cleared');"
+      >
+        clear
+      </button>
+    </div>
+
+    <script>
+      let calculation = "";
+      function updatecalculation(experssion) {
+        calculation += experssion;
+        console.log(calculation);
+      }
+      function calculateResult(wholeexpression) {
+        calculation = eval(wholeexpression);
+        console.log(calculation);
+      }
+    </script>
+  </body>
+</html>
