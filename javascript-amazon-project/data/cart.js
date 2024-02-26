@@ -1,6 +1,8 @@
 import { products } from "./products.js";
 
-export let cart=[
+export let cart=JSON.parse(localStorage.getItem('cart'));
+if(!cart){
+cart=[
     {
         productId:"15b6fc6f-327a-4ec4-896f-486349e85a3d",
         quantity:1
@@ -10,6 +12,12 @@ export let cart=[
         quantity:3
     }
 ];
+}
+
+
+function saveToStorage(){
+    localStorage.setItem(`cart`,JSON.stringify(cart));
+}
 
 export function addtocart(productId){
     let matchingitem; 
@@ -26,6 +34,7 @@ export function addtocart(productId){
          productId:productId,
          quantity:1});
          }
+         saveToStorage();
 }
 
 export function removeFromCart(productId){
@@ -36,4 +45,5 @@ export function removeFromCart(productId){
         }
     });
     cart=newCart;
+    saveToStorage();
 };
