@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Calorie Counter</title>
+  </head>
+  <body>
+    <main>
+      <h1>Calorie Counter</h1>
+      <div class="container">
+        <form action="" id="calorie-counter"></form>
+        <label for="budget">Budget</label>
+        <input
+          type="number"
+          min="0"
+          placeholder="Daily calorie budget"
+          id="budget"
+          required
+        />
+        <fieldset id="breakfast">
+          <legend>Breakfast</legend>
+          <div class="input-container"></div>
+        </fieldset>
+        <fieldset id="lunch">
+          <legend>Lunch</legend>
+          <div class="input-container"></div>
+        </fieldset>
+        <fieldset id="dinner">
+          <legend>Dinner</legend>
+          <div class="input-container"></div>
+        </fieldset>
+        <fieldset id="snacks">
+          <legend>Snacks</legend>
+          <div class="input-container"></div>
+        </fieldset>
+        <fieldset id="exercise">
+          <legend>Exercise</legend>
+          <div class="input-container"></div>
+        </fieldset>
+        <div class="controls">
+          <span>
+            <label for="entry-dropdown">Add food or exercise:</label>
+            <select name="options" id="entry-dropdown">
+              <option selected value="breakfast" defau>Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+              <option value="snacks">Snacks</option>
+              <option value="exercise">Exercise</option>
+            </select>
+            <button type="button" id="add-entry">Add Entry</button>
+          </span>
+          <div>
+            <button type="submit">Calculate Remaining Calories</button>
+            <button type="button" id="clear">Clear</button>
+          </div>
+        </div>
+      </div>
+      <div id="output" class="output hide"></div>
+    </main>
+    <script src="./script.js">
+        const calorieCounter=document.getElementById('calorie-counter');
+        const budgetNumberInput=document.getElementById('budget');
+        const entryDropdown=document.getElementById('entry-dropdown');
+    
+        const addEntryButton=document.getElementById('add-entry')
+        const clearButton=document.getElementById('clear')
+        const output=document.getElementById('output');
+        let isError=false;
+    
+        function cleanInputString(str){
+            const regex = /[+-\s]/g;
+        }
+        function isInvalidInput(str){
+            const regex=/\d+e\d+/i;
+            return str.match(regex);
+        }
+        function addEntry(){
+            let targetInputContainer=document.querySelector(`#${entryDropdown} ${'.input-container'}`);
+            const entryNumber=targetInputContainer.querySelectorAll('input[type="text"]').length+1;
+            let HTMLString=`
+            <label for="${entryDropdown.value}-${entryNumber}-name">Entry ${entryNumber} Name</label>
+            <input type="text" placeholder="Name" id="${entryDropdown.value}-${entryNumber}-name">
+            <label for="${entryDropdown.value}-${entryNumber}-calories">Entry ${entryNumber} Calories</label>
+            <input type="number" min="0" placeholder="Calories" id="${entryDropdown.value}-${entryNumber}-calories">
+            `;
+            targetInputContainer.insertAdjacentHTML("beforeend",HTMLString);
+            addEntryButton.addEventListener('click',addEntry);
+    
+        }
+        function getCaloriesFromInputs(list){
+            let calories=0;
+            for(const item of list){
+                const currVal=cleanInputString(item.value);
+                const invalidInputMatch=isInvalidInput(currVal);
+                if(invalidInputMatch){
+                    alert(`Invalid Input: ${invalidInputMatch[0]}`);
+                    isError=true;
+                    return null;
+                }
+                calories+=Number(currVal);
+            }
+            return calories;
+        }
+        function calculateCalories(e){
+            e.preventDefault();
+            isError=false;
+            const breakfastNumberInputs=document.querySelectorAll('#breakfast input[type=number]');
+            const lunchNumberInputs=document.querySelectorAll('#lunch input[type=number]');
+            const dinnerNumberInputs=document.querySelectorAll('#dinner input[type=number]');
+            const snacksNumberInputs=document.querySelectorAll('#snacks input[type=number]');
+            const exerciseNumberInputs=document.querySelectorAll('#exercise input[type=number]');
+    
+            const breakfastCalories=getCaloriesFromInputs(breakfastNumberInputs);
+            const lunchCalories=getCaloriesFromInputs(lunchNumberInputs);
+            const exerciseCalories=getCaloriesFromInputs(exerciseNumberInputs);
+            const dinnerCalories=getCaloriesFromInputs(dinnerNumberInputs);
+            const snacksCalories=getCaloriesFromInputs(snacksNumberInputs);
+            const budgetCalories=getCaloriesFromInputs([budgetNumberInput]);
+            if(isError){
+                return;
+            }
+            const consumedCalories=breakfastCalories+lunchCalories+dinnerCalories+snacksCalories;
+            const remainingCalories=budgetCalories-consumedCalories+exerciseCalories;
+            
+            const surplusOrDeficit=remainingCalories<0?"Surplus":"Deficit";
+            output.innerHTML=`
+      <span class="${surplusOrDeficit.toLowerCase()}">${Math.abs(remainingCalories)} Calorie ${surplusOrDeficit}</span>
+      <hr>
+      <p>${budgetCalories} Calories Budgeted</p>
+      <p>${consumedCalories} Calories Consumed</p>
+      <p>${exerciseCalories} Calories Burned</p>
+      `;
+      output.classList.remove("hide");
+    
+      calorieCounter.addEventListener('submit',calculateCalories);
+      function clearForm(){
+        const inputContainers=Array.from(document.querySelectorAll('.input-container'));
+      for(const container of inputContainers){
+        container.innerHTML='';
+      }
+      budgetNumberInput.value="";
+      output.innerText="";
+      output.classList.add('hide');
+      }
+      clearButton.addEventListener('click',clearForm);
+    };
+    
+      </script> 
+  </body>
+ 
